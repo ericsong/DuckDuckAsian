@@ -7,10 +7,10 @@ from django.forms.extras.widgets import SelectDateWidget
 BIRTH_YEAR_CHOICES = range(1913,2014)
 
 RACE_CHOICES = (
-    ('1', 'Asian'),
-    ('2', 'White'),
-    ('3', 'Black'),
-    ('4', 'Hispanic'))
+    ('Asian'),
+    ('White'),
+    ('Black'),
+    ('Hispanic'))
 
 class SherlockUserForm(forms.Form):
     photo = forms.ImageField()

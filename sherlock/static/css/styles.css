@@ -1,0 +1,23 @@
+.center {
+  text-align:center;
+  float: center;
+  margin-left: auto;
+  margin-right:auto;
+}
+
+.halfCircleBottom{
+  height:30;
+  width:60px;
+  border-radius: 0 0 90px 90px;
+  -moz-border-radius: 0 0 90px 90px;
+  -webkit-border-radius: 0 0 90px 90px;
+  background:#1ABC9C;
+}
+
+.btn.btn-primary{
+  background-color:#95A5A6;
+}
+
+.right {
+  float:right;
+}
