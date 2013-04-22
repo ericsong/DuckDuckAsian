@@ -1,11 +1,18 @@
 from django import forms
 from auth.models import SherlockUser
 
+RACE_CHOICES = (
+    ('1', 'Asian'),
+    ('2', 'White'),
+    ('3', 'Black'),
+    ('4', 'Hispanic'),
+)
+
 class SherlockUserForm(forms.Form):
     photo = forms.ImageField()
 
     #user profile info (main)
-    race = forms.CharField(max_length=255)
+    race = forms.ChoiceField(choices=RACE_CHOICES)
     ethnicity = forms.CharField(max_length=255, required=False)
     nationality = forms.CharField(max_length=255, required=False)
     date_of_birth = forms.DateField()
