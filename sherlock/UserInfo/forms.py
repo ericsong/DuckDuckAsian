@@ -1,23 +1,22 @@
 from django import forms
 from auth.models import SherlockUser
 
-
-from django.forms.fields import DateField, ChoiceField, MultipleChoiceField
-from django.forms.widgets import RadioSelect, CheckboxSelectMultiple
+from django.forms.fields import DateField
 from django.forms.extras.widgets import SelectDateWidget
 
 BIRTH_YEAR_CHOICES = ('1980', '1981', '1982')
-FAVORITE_COLORS_CHOICES = (('blue', 'Blue'),
-                            ('green', 'Green'),
-                            ('black', 'Black'))
+
+RACE_CHOICES = (
+    ('1', 'Asian'),
+    ('2', 'White'),
+    ('3', 'Black'),
+    ('4', 'Hispanic'))
 
 class SherlockUserForm(forms.Form):
     photo = forms.ImageField()
 
     #user profile info (main)
-    race = forms.CharField(max_length=255)
-
-    # ETHNICITY_CHOICES = 
+    race = forms.ChoiceField(choices=RACE_CHOICES)
 
     # ethnicity = forms.CharField(max_length=255, required=False)
     # nationality = forms.CharField(max_length=255, required=False)
