@@ -26,14 +26,15 @@ def UploadInfo(request):
             s_user.photo = form.cleaned_data['photo']
             s_user.race = form.cleaned_data['race']
             s_user.date_of_birth = form.cleaned_data['date_of_birth']
-            
+
+            '''
             #optional data
             if(form.cleaned_data['ethnicity'] is not None):
                 s_user.ethnicity = form.cleaned_data['ethnicity']
-            
+
             if(form.cleaned_data['nationality'] is not None):
                 s_user.ethncitiy = form.cleaned_data['nationality']
-        
+
             if(form.cleaned_data['mood'] is not None):
                 s_user.mood = form.cleaned_data['mood']
 
@@ -48,7 +49,7 @@ def UploadInfo(request):
 
             if(form.cleaned_data['attractiveness'] is not None):
                 s_user.attractiveness = form.cleaned_data['attractiveness']
-
+            '''
             s_user.save()
             return HttpResponseRedirect('/home/')
     else:
