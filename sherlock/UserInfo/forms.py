@@ -4,7 +4,7 @@ from auth.models import SherlockUser
 from django.forms.fields import DateField
 from django.forms.extras.widgets import SelectDateWidget
 
-BIRTH_YEAR_CHOICES = ('1980', '1981', '1982')
+BIRTH_YEAR_CHOICES = range(1913,2014)
 
 RACE_CHOICES = (
     ('1', 'Asian'),
