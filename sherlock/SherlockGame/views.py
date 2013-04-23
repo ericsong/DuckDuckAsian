@@ -13,9 +13,11 @@ import random
 @login_required(login_url="/login/")
 def PlayGame(request):
     if request.POST:
-        if(request.POST.get('skipped') == 'True'):
-            pass
-            #what to do if user skips question
+        if(request.POST.get('skipped') == "True"):
+            skipped_answer_id = request.POST.get('answer_id')
+            skipped_answer = Answer_model.objects.get(id=skipped_answer_id)
+            skipped_answer.answer_skipped = True
+            skipped_answer.save()
             #need to separately handle the case where the user skips before/after answering
             #save the previous question appropriately and load a new one
         else:
