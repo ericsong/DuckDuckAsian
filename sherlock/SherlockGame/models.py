@@ -16,8 +16,8 @@ class AnswerManager(models.Manager):
 #model representing a user's answer
 class Answer(models.Model):
     question_type = models.ForeignKey(QuestionType) #question type
-    time_started = models.DateField() #time the user started
-    time_answered = models.DateField(null=True) #time the user answered
+    time_started = models.DateTimeField() #time the user started
+    time_answered = models.DateTimeField(null=True) #time the user answered
     user_answering = models.ForeignKey(SherlockUser, related_name='user_answering') #user answering the question
     user_photo = models.ForeignKey(SherlockUser, related_name='user_photo') #user in the photo
     answer_skipped = models.BooleanField(blank=True) #whether or not the user skipped
