@@ -1,8 +1,60 @@
 {% include 'header.html' %}
 
 {{ state }}
-
-<h1 text-align:center font-color:#FFFFFF> Welcome to Sherlock. </h1>
+<!DOCTYPE html>
+ <html>
+ <head>
+         <meta charset="utf-8">
+         <title>Sherlock</title>
+         <link rel="stylesheet" href="http://flip.hr/css/bootstrap.min.css">
+ </head>
+ <body>
+<div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="brand" href="#">Sherlock</a>
+          <div class="nav-collapse collapse">
+            <ul class="nav">
+              <li class="active"><a href="#">Home</a></li>
+              <li><a href="#about">About</a></li>
+              <li><a href="#contact">Profile</a></li>
+            </ul>
+            <form class="navbar-form pull-right" action = "/login/" method="post" >
+		{% csrf_token %}
+		{% if next %}
+			<input type ="hidden" name="next" value="{{ next }}" />
+		{% endif %}
+		
+		username:
+              <input class="span2" type="text" placeholder="Username" name = "username"  value = "{{ username }}" >
+		
+		password:
+              <input class="span2" type="password" placeholder="Password" name = "password"  value = "" />
+              <a href ="/register/"> <button type="submit" class="btn">Sign in</button></a>
+            </form>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>       
+			
+ <div class="container">
+         
+         <div class="hero-unit">
+         <h1>Welcome to Sherlock!</h1>
+         <p>Sherlock is a mind-stimulating game that helps people better identify other individuals</p>
+         <p><a href="/register/" class="btn btn-primary btn-large">Get Started!</a></p>
+         </div><!-- .hero-unit -->
+        
+ </div><!-- .container -->
+     
+ </body>
+</html>
+<!--
 <form action="/login/" method="post">
 			{% csrf_token %}	
 			{% if next %}
@@ -22,5 +74,5 @@
 <br>		
 
 <a href="/register/">Register</a>
-
-{% include 'footer.html' %}
+-->
+{% include 'footer.html' %} 
