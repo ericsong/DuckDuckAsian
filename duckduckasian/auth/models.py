@@ -2,12 +2,12 @@ from django.db import models
 from django.contrib.auth.models import User
 from django_extensions.db.models import TimeStampedModel
 
-class SherlockUserManager(models.Manager):
-    def create_SherlockUser(self, user):
+class DDAUserManager(models.Manager):
+    def create_DDAUser(self, user):
         s_user = self.create(user=user)
         return s_user
 
-class SherlockUser(models.Model):
+class DDAUser(models.Model):
     user = models.OneToOneField(User) 
     photo = models.ImageField(upload_to='userphotos', null=True)
 
@@ -24,4 +24,4 @@ class SherlockUser(models.Model):
     socialclass = models.CharField(max_length=1024, null=True) #income levels?
     attractiveness = models.IntegerField(null=True) #1-10 i guess
 
-    objects = SherlockUserManager()
+    objects = DDAUserManager()

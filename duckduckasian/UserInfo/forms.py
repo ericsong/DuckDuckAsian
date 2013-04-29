@@ -1,5 +1,5 @@
 from django import forms
-from auth.models import SherlockUser
+from auth.models import DDAUser
 
 from django.forms.fields import DateField
 from django.forms.extras.widgets import SelectDateWidget
@@ -11,7 +11,7 @@ RACE_CHOICES = (('Chinese'), ('Japanese'),
                 ('Vietnamese'), ('Taiwanese'),
                 ('Thai'), ('Other'))
 
-class SherlockUserForm(forms.Form):
+class DDAUserForm(forms.Form):
     photo = forms.ImageField()
 
     #user profile info (main)

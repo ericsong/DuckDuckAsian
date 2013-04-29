@@ -1,7 +1,7 @@
 {% include 'header.html' %}
 
 {{ state }}
-<h1> Register for Sherlock </h1>
+<h1> Register for Duck Duck Asian </h1>
 <form action="/register/" method="post">{% csrf_token %}
 	{{ form.as_p }}
 	<input type="submit" value = "register" />

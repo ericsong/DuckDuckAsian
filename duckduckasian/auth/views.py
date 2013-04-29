@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from auth.forms import RegistrationForm
-from auth.models import SherlockUser
+from auth.models import DDAUser
 
 def login_user(request):
     if request.user.is_authenticated():
@@ -53,7 +53,7 @@ def register_user(request):
             email = form.cleaned_data['email']
 
             new_user = User.objects.create_user(username, email, password)
-            new_s_user = SherlockUser.objects.create_SherlockUser(new_user) 
+            new_s_user = DDAUser.objects.create_DDAUser(new_user) 
             new_user.save()
             new_s_user.save()
 

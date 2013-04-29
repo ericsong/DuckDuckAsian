@@ -1,12 +1,12 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 
-from SherlockGame.models import Answer as Answer_model
-from auth.models import SherlockUser as SherlockUser_model
+from DDAGame.models import Answer as Answer_model
+from auth.models import DDAUser as DDAUser_model
 
 @login_required(login_url="/login/")
 def ViewUserStats(request):
-    s_user = SherlockUser_model.objects.get(user=request.user) 
+    s_user = DDAUser_model.objects.get(user=request.user) 
     user_answers = Answer_model.objects.filter(user_answering=s_user)
 
     num_answers = 0

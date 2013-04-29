@@ -1,14 +1,14 @@
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
-from auth.models import SherlockUser
-from UserInfo.forms import SherlockUserForm
+from auth.models import DDAUser
+from UserInfo.forms import DDAUserForm
 
 from datetime import date
 
 @login_required(login_url="/login/")
 def ViewUserInfo(request):
-    s_user = SherlockUser.objects.get(user=request.user)
+    s_user = DDAUser.objects.get(user=request.user)
     if(s_user.race is None):
         state = "You haven't uploaded any info yet. Please follow the link to do so."
         return render(request, 'ViewUserInfo_None.html', {'user': request.user, 'state': state})
@@ -20,9 +20,9 @@ def ViewUserInfo(request):
 @login_required(login_url="/login/")
 def UploadInfo(request):
     if request.method == 'POST':
-        form = SherlockUserForm(request.POST, request.FILES)
+        form = DDAUserForm(request.POST, request.FILES)
         if form.is_valid():
-            s_user = SherlockUser.objects.get(user=request.user)
+            s_user = DDAUser.objects.get(user=request.user)
             s_user.photo = form.cleaned_data['photo']
             s_user.race = form.cleaned_data['race']
             s_user.date_of_birth = form.cleaned_data['date_of_birth']
@@ -53,7 +53,7 @@ def UploadInfo(request):
             s_user.save()
             return HttpResponseRedirect('/home/')
     else:
-        form = SherlockUserForm()
+        form = DDAUserForm()
 
     return render(request, 'UploadInfo.html', {
         'form': form,

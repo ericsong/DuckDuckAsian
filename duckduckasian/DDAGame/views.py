@@ -1,11 +1,11 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 
-from auth.models import SherlockUser as SherlockUser_model
-from SherlockGame.models import QuestionType as QuestionType_model
-from SherlockGame.models import Answer as Answer_model
+from auth.models import DDAUser as DDAUser_model
+from DDAGame.models import QuestionType as QuestionType_model
+from DDAGame.models import Answer as Answer_model
 
-from SherlockGame.forms import AnswerTextForm, AnswerNumberForm
+from DDAGame.forms import AnswerTextForm, AnswerNumberForm
 
 from datetime import date, datetime
 import random
@@ -24,10 +24,10 @@ def PlayGame(request):
             pass
             #what to do if user submits his answer
 
-    num_photos = SherlockUser_model.objects.count() - SherlockUser_model.objects.filter(race=None).count()
+    num_photos = DDAUser_model.objects.count() - DDAUser_model.objects.filter(race=None).count()
     s_userID = random.randint(1, num_photos)
-    photo_user = SherlockUser_model.objects.get(id=s_userID) #retrieve random SherlockUser 
-    answering_user = SherlockUser_model.objects.get(user_id=request.user.id)
+    photo_user = DDAUser_model.objects.get(id=s_userID) #retrieve random DDAUser 
+    answering_user = DDAUser_model.objects.get(user_id=request.user.id)
 
     num_questions = QuestionType_model.objects.filter(active=True).count() 
     questionID = random.randint(1, num_questions)
@@ -55,7 +55,7 @@ def PlayGameAnswer(request):
         question_type_id = request.POST.get("question_type")
         answer_id = request.POST.get("answer_id") 
 
-        photo_user = SherlockUser_model.objects.get(id=photo_user_id)
+        photo_user = DDAUser_model.objects.get(id=photo_user_id)
         question_type = QuestionType_model.objects.get(id=question_type_id)
         answer = Answer_model.objects.get(id=answer_id)
     
