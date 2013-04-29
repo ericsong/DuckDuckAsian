@@ -1,19 +1,12 @@
 from django import forms
-
 from django.forms.fields import DateField
 from django.forms.extras.widgets import SelectDateWidget
 from django.forms.widgets import PasswordInput
 
-BIRTH_YEAR_CHOICES = range(1913,2013)
+from UserInfo.race_choices import RaceChoices
 
-RACE_CHOICES = (('Chinese', 'Chinese'),
-                ('Filipino', 'Filipino'),
-                ('Japan', 'Japan'),
-                ('Korean', 'Korean'),
-                ('Taiwanese', 'Taiwanese'),
-                ('Thai', 'Thai'),
-                ('Vietnamese', 'Vietnamese'),
-                ('Other', 'Other'))
+BIRTH_YEAR_CHOICES = range(1913,2013)
+RACE_CHOICES = RaceChoices.RACE_CHOICES
 
 class RegistrationForm(forms.Form):
     username = forms.CharField(max_length=255)

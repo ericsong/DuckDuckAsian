@@ -32,7 +32,7 @@ def PlayGame(request):
     num_questions = QuestionType_model.objects.filter(active=True).count() 
     questionID = random.randint(1, num_questions)
     questiontype = QuestionType_model.objects.get(id=questionID) #retrieve random question
-    
+
     new_answer = Answer_model.objects.create_Answer(questiontype, datetime.now(), answering_user, photo_user)
     new_answer.save()
 
@@ -42,9 +42,9 @@ def PlayGame(request):
         form = AnswerNumberForm()
 
     return render(request, 'PlayGame.html', {
-        'user': request.user, 
-        'photo_user': photo_user, 
-        'question': questiontype, 
+        'user': request.user,
+        'photo_user': photo_user,
+        'question': questiontype,
         'answer_id': new_answer.id,
         'form': form,
     })
@@ -58,7 +58,7 @@ def PlayGameAnswer(request):
         photo_user = DDAUser_model.objects.get(id=photo_user_id)
         question_type = QuestionType_model.objects.get(id=question_type_id)
         answer = Answer_model.objects.get(id=answer_id)
-    
+
         if(question_type.info_type == "race"):
             form = AnswerTextForm(request.POST)
         elif(question_type.info_type == "age"):
@@ -69,19 +69,19 @@ def PlayGameAnswer(request):
         else:
             #what to do if user submits something retarded.... hmmmmmmmmmmmmmmmmmm
             pass 
-        
+
         if question_type.info_type == "race":
-            correct_answer = photo_user.race 
+            correct_answer = photo_user.race
         elif question_type.info_type == "age":
             correct_answer = calculate_age(photo_user.date_of_birth) 
 
         compare1 = user_answer
         compare2 = correct_answer
-    
+
         if isinstance(compare1, str):
             compare1 = compare1.lower()
             compare2 = compare2.lower()
-       
+
         if compare1 == compare2:
             isuser_correct = True
             response = "good job!"
@@ -97,7 +97,6 @@ def PlayGameAnswer(request):
 
         answer.save()
 
-    
         return render(request, 'PlayGameAnswer.html', {
             'user': request.user,
             'photo_user': photo_user,

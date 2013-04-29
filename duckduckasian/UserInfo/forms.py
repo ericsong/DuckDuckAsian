@@ -1,15 +1,12 @@
 from django import forms
-from auth.models import DDAUser
-
 from django.forms.fields import DateField
 from django.forms.extras.widgets import SelectDateWidget
 
-BIRTH_YEAR_CHOICES = range(1913,2013)
+from auth.models import DDAUser
+from UserInfo.race_choices import RaceChoices
 
-RACE_CHOICES = (('Chinese'), ('Japanese'),
-                ('Korean'), ('Filipino'),
-                ('Vietnamese'), ('Taiwanese'),
-                ('Thai'), ('Other'))
+BIRTH_YEAR_CHOICES = range(1913,2013)
+RACE_CHOICES = RaceChoices.RACE_CHOICES
 
 class DDAUserForm(forms.Form):
     photo = forms.ImageField()

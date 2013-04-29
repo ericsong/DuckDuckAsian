@@ -31,48 +31,28 @@
 		{% endif %}
 		
 		username:
-              <input class="span2" type="text" placeholder="Username" name = "username"  value = "{{ username }}" >
+              <input class="span2" type="text" placeholder="Username" name="username"  value="{{ username }}" >
 		
 		password:
-              <input class="span2" type="password" placeholder="Password" name = "password"  value = "" />
+              <input class="span2" type="password" placeholder="Password" name="password"  value = "" />
               <a href ="/register/"> <button type="submit" class="btn">Sign in</button></a>
             </form>
           </div><!--/.nav-collapse -->
         </div>
       </div>
-    </div>       
+    </div>
 			
  <div class="container">
-         
+
          <div class="hero-unit">
          <h1>Welcome to Duck Duck Asian!</h1>
-         <p>Duck Duck Asian is a mind-stimulating game that helps people better identify other individuals</p>
+         <p>Duck Duck Asian is a mind-stimulating game that helps people better identify other individuals!</p>
          <p><a href="/register/" class="btn btn-primary btn-large">Get Started!</a></p>
          </div><!-- .hero-unit -->
-        
+
  </div><!-- .container -->
-     
+
  </body>
 </html>
-<!--
-<form action="/login/" method="post">
-			{% csrf_token %}	
-			{% if next %}
-				<input type="hidden" name="next" value="{{ next }}" />
-			{% endif %}
-			
-			username:
-			<input type = "text" name = "username" value = "{{ username }}" />
-			</br>
 
-			password:
-			<input type = "password" name = "password" value = "" />
-			</br>
-
-			<input type = "submit" value = "Log In" />
-</form>
-<br>		
-
-<a href="/register/">Register</a>
--->
 {% include 'footer.html' %} 
