@@ -1,7 +1,9 @@
 {% include 'header.html' %}
 
 <center>
-<img src="/media/{{ photo_user.photo }}"  alt="photo" height="400" width="350">
+<div id="image_container">
+  <img src="/media/{{ photo_user.photo }}"  alt="photo">
+</div>
 </br>
 
 <h3>{{ question.text }}</h3>

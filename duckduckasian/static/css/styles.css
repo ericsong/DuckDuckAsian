@@ -21,3 +21,9 @@
 .right {
   float:right;
 }
+
+#image_container {
+  float: left;
+  height:400px;
+  width:350px;
+}
