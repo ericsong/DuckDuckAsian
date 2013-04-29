@@ -1,5 +1,5 @@
 from django import forms
-from UserInfo.race_choices import raceChoices
+from UserInfo.race_choices import RaceChoices
 
 RACE_CHOICES = RaceChoices.RACE_CHOICES
 
