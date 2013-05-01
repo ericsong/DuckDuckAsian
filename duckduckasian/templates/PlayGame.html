@@ -4,6 +4,33 @@
 <div id="image_container">
   <img src="/media/{{ photo_user.photo }}"  alt="photo">
 </div>
+
+<div class="button-groups">
+	<form class="button-answers">
+		<table>
+			<tr>
+				<td><center><a class="btn btn-primary btn-medium" style="width:120px;">Chinese</a></center></td>
+				<td><center><a class="btn btn-primary btn-medium" style="width:120px;">Korean</a></center></td>
+			</tr>
+			<tr>	
+				<td><center><a class="btn btn-primary btn-medium" style="width:120px;">Filipino</a></center></td>
+				<td><center><a class="btn btn-primary btn-medium" style="width:120px;">Vietnamese</a></center></td>
+			</tr>
+			<tr>
+				<td><center><a class="btn btn-primary btn-medium" style="width:120px;">Taiwanese</a></center></td>
+				<td><center><a class="btn btn-primary btn-medium" style="width:120px;">Thai</a></center></td>
+			</tr>
+			<tr>
+				<td colspan="2"><center><select><a class="btn btn-primary btn-medium" style="width:240px;">Other</a>
+						<option value="other">Other Nations</option>
+					</select>
+				</center></td>
+			</tr>
+		</table>
+	</form>
+			
+
+</div>
 </br>
 
 <h3>{{ question.text }}</h3>
