@@ -82,5 +82,18 @@ skip
 
 </br>
 <a href="/home/">Quit</a>
+
+
+<script type="text/javascript">
+  $('.btn.btn-primary.btn-medium').bind('mouseenter', function() {
+
+    var color  = $(this).css("background-color");
+    $(this).css("background", "#380606");
+
+    $(this).bind("mouseout", function(){
+      $(this).css("background", color);
+    })
+  })
+</script>
 </center>
 {% include 'footer.html' %}
