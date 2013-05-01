@@ -9,8 +9,8 @@
 </br>
 
 <script type="text/javascript">
-	function turnColor(){
-		document.getElementById("button_chinese").setAttribute("style", "background-color: green;");
+	function checkAnswer(button_id){
+		document.getElementById(button_id).setAttribute("style", "background-color: green;");
 	}	
 
 	function submit_answer(){
@@ -27,16 +27,16 @@
 	<form class="button-answers">
 		<table>
 			<tr>
-				<td><center><a id="button_chinese" class="btn btn-primary btn-medium" style="width:120px;" onclick="turnColor()">Chinese</a></center></td>
-				<td><center><a class="btn btn-primary btn-medium" style="width:120px;">Korean</a></center></td>
+				<td><center><a id="button_chinese" class="btn btn-primary btn-medium" style="width:120px;" onclick="checkAnswer('button_chinese')">Chinese</a></center></td>
+				<td><center><a id="button_korean" class="btn btn-primary btn-medium" style="width:120px;" onclick="checkAnswer('button_korean')">Korean</a></center></td>
 			</tr>
 			<tr>	
-				<td><center><a class="btn btn-primary btn-medium" style="width:120px;">Filipino</a></center></td>
-				<td><center><a class="btn btn-primary btn-medium" style="width:120px;">Vietnamese</a></center></td>
+				<td><center><a id="button_filipino" class="btn btn-primary btn-medium" style="width:120px;" onclick="checkAnswer('button_filipino')">Filipino</a></center></td>
+				<td><center><a id="button_vietnamese" class="btn btn-primary btn-medium" style="width:120px;" onclick="checkAnswer('button_vietnamese')">Vietnamese</a></center></td>
 			</tr>
 			<tr>
-				<td><center><a class="btn btn-primary btn-medium" style="width:120px;">Taiwanese</a></center></td>
-				<td><center><a class="btn btn-primary btn-medium" style="width:120px;">Thai</a></center></td>
+				<td><center><a id="button_taiwanese" class="btn btn-primary btn-medium" style="width:120px;" onclick="checkAnswer('button_taiwanese')">Taiwanese</a></center></td>
+				<td><center><a id="button_thai" class="btn btn-primary btn-medium" style="width:120px;" onclick="checkAnswer('button_thai')">Thai</a></center></td>
 			</tr>
 			<tr>
 				<td colspan="2"><center><select><a class="btn btn-primary btn-medium" style="width:240px;">Other</a>
