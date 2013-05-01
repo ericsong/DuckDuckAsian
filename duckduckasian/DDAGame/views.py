@@ -5,8 +5,6 @@ from auth.models import DDAUser as DDAUser_model
 from DDAGame.models import QuestionType as QuestionType_model
 from DDAGame.models import Answer as Answer_model
 
-from DDAGame.forms import AnswerTextForm, AnswerNumberForm
-
 from datetime import date, datetime
 import random
 
@@ -35,75 +33,25 @@ def PlayGame(request):
 
     new_answer = Answer_model.objects.create_Answer(questiontype, datetime.now(), answering_user, photo_user)
     new_answer.save()
-
+    
     if(questiontype.info_type == "race"):
-        form = AnswerTextForm()
+        is_race = True
+        is_age = False 
+        correct_answer = photo_user.race 
     elif(questiontype.info_type == "age"):
-        form = AnswerNumberForm()
+        is_race = False 
+        is_age = True
+        correct_answer = calculate_age(photo_user.date_of_birth)
 
     return render(request, 'PlayGame.html', {
         'user': request.user,
         'photo_user': photo_user,
+        'is_race': is_race,
+        'is_age': is_age,
+        'correct_answer': correct_answer,
         'question': questiontype,
         'answer_id': new_answer.id,
-        'form': form,
     })
-
-def PlayGameAnswer(request):
-    if request.method == 'POST':
-        photo_user_id = request.POST.get("photo_user_id")
-        question_type_id = request.POST.get("question_type")
-        answer_id = request.POST.get("answer_id") 
-
-        photo_user = DDAUser_model.objects.get(id=photo_user_id)
-        question_type = QuestionType_model.objects.get(id=question_type_id)
-        answer = Answer_model.objects.get(id=answer_id)
-
-        if(question_type.info_type == "race"):
-            form = AnswerTextForm(request.POST)
-        elif(question_type.info_type == "age"):
-            form = AnswerNumberForm(request.POST)
-  
-        if form.is_valid():
-            user_answer = form.cleaned_data['raw_answer']
-        else:
-            #what to do if user submits something retarded.... hmmmmmmmmmmmmmmmmmm
-            pass 
-
-        if question_type.info_type == "race":
-            correct_answer = photo_user.race
-        elif question_type.info_type == "age":
-            correct_answer = calculate_age(photo_user.date_of_birth) 
-
-        compare1 = user_answer
-        compare2 = correct_answer
-
-        if isinstance(compare1, str):
-            compare1 = compare1.lower()
-            compare2 = compare2.lower()
-
-        if compare1 == compare2:
-            isuser_correct = True
-            response = "good job!"
-        else:
-            isuser_correct = False
-            response = "wronggggggggg"
-
-        answer.time_answered = datetime.now()
-        answer.answer_skipped = False
-        answer.answer_raw = user_answer
-        answer.answer_correct = correct_answer
-        answer.correct = isuser_correct
-
-        answer.save()
-
-        return render(request, 'PlayGameAnswer.html', {
-            'user': request.user,
-            'photo_user': photo_user,
-            'user_answer': user_answer,
-            'correct_answer': correct_answer,
-            'response': response,
-        })
 
 def calculate_age(born):
     today = date.today()

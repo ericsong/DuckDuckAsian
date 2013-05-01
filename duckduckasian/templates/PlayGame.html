@@ -2,14 +2,32 @@
 
 <center>
 <div id="image_container">
-  <img src="/media/{{ photo_user.photo }}"  alt="photo">
+	<img src="/media/{{ photo_user.photo }}" height="400" width="350">
 </div>
 
+<h3>{{ question.text }}</h3>
+</br>
+
+<script type="text/javascript">
+	function turnColor(){
+		document.getElementById("button_chinese").setAttribute("style", "background-color: green;");
+	}	
+
+	function submit_answer(){
+		document.getElementById("submit_answer").submit();	
+	}
+	
+	function skip_answer(){
+		document.getElementById("skip_answer").submit();
+	}	
+</script>
+
+{% if is_race %}
 <div class="button-groups">
 	<form class="button-answers">
 		<table>
 			<tr>
-				<td><center><a class="btn btn-primary btn-medium" style="width:120px;">Chinese</a></center></td>
+				<td><center><a id="button_chinese" class="btn btn-primary btn-medium" style="width:120px;" onclick="turnColor()">Chinese</a></center></td>
 				<td><center><a class="btn btn-primary btn-medium" style="width:120px;">Korean</a></center></td>
 			</tr>
 			<tr>	
@@ -32,25 +50,19 @@
 
 </div>
 </br>
+{% endif %}
 
-<h3>{{ question.text }}</h3>
+{% if is_age %}
+<form id="raw_answer" method="POST">{% csrf_token %}
+	<input type="text" name="raw_answer">
+</form>
 </br>
-
-<script type="text/javascript">
-	function submit_answer(){
-		document.getElementById("submit_answer").submit();	
-	}
-	
-	function skip_answer(){
-		document.getElementById("skip_answer").submit();
-	}	
-</script>
+{% endif %}
 
 <form id="submit_answer" action="/PlayGameAnswer/" method="POST">{% csrf_token %}
 	<input type="hidden" name="photo_user_id" value="{{ photo_user.id }}"/>
 	<input type="hidden" name="question_type" value="{{ question.id }}"/>
 	<input type="hidden" name="answer_id" value="{{ answer_id }}"/>	
-	{{ form.as_p }}
 </form>
 
 <form id="skip_answer" action="/PlayGame/" method="POST">{% csrf_token %}
