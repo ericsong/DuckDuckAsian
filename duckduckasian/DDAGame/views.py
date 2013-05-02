@@ -11,16 +11,29 @@ import random
 @login_required(login_url="/login/")
 def PlayGame(request):
     if request.POST:
-        if(request.POST.get('skipped') == "True"):
-            skipped_answer_id = request.POST.get('answer_id')
-            skipped_answer = Answer_model.objects.get(id=skipped_answer_id)
-            skipped_answer.answer_skipped = True
-            skipped_answer.save()
-            #need to separately handle the case where the user skips before/after answering
-            #save the previous question appropriately and load a new one
-        else:
-            pass
-            #what to do if user submits his answer
+        photo_user_id = request.POST.get("photo_user_id")
+        question_type_id = request.POST.get("question_type")
+        answer_id = request.POST.get("answer_id")
+        correct = request.POST.get("correct")
+        num_attempted = request.POST.get("num_attempted")
+
+        photo_user = DDAUser_model.objects.get(id=photo_user_id)
+        question_type = QuestionType_model.objects.get(id=question_type_id)
+        answer = Answer_model.objects.get(id=answer_id)
+
+        if(correct == "not answered"): #user skipped
+            answer.answer_skipped = True
+            answer.num_attempted = 0
+        elif(correct == "True"):
+            answer.answer_skipped = False
+            answer.correct = True
+            answer.num_attempted = 1 
+        elif(correct == "False"):
+            answer.answer_skipped = False
+            answer.correct = False
+            answer.num_attempted = int(num_attempted)
+
+        answer.save();
 
     num_photos = DDAUser_model.objects.count() - DDAUser_model.objects.filter(race=None).count()
     s_userID = random.randint(1, num_photos)

@@ -9,18 +9,59 @@
 </br>
 
 <script type="text/javascript">
+	$.duckduckasian = {};
+	$.duckduckasian.correct = "not answered";
+	$.duckduckasian.num_attempted = 0;
+
 	function checkAnswer(button_id){
-		document.getElementById(button_id).setAttribute("style", "background-color: green;");
+		var color;
+
+		if(button_id.toUpperCase() === "button_{{ correct_answer }}".toUpperCase()){
+			display_correct();	
+			color = "#8CD966";
+				
+			if($.duckduckasian.correct == "not answered")
+				$.duckduckasian.correct = "True";
+		}else{
+			color = "#E30909";
+			
+			if($.duckduckasian.correct == "not answered")
+				$.duckduckasian.correct = "False";
+		}
+
+		button_id = '#' + button_id;
+
+		var curr_color = $(button_id).css("background");
+		if(curr_color != 'rgb(140, 217, 102)' && curr_color != 'rgb(227, 9, 9)')
+			$.duckduckasian.num_attempted++;
+
+		$(button_id).css("background", color);
+	}
+
+	function display_correct(){
+		$("#next_question").prop('value', 'next');	
 	}	
 
-	function submit_answer(){
-		document.getElementById("submit_answer").submit();	
-	}
-	
-	function skip_answer(){
-		document.getElementById("skip_answer").submit();
+	function next_question(){
+		document.getElementById("num_attempted_data").setAttribute("value", $.duckduckasian.num_attempted);
+		document.getElementById("correct_data").setAttribute("value", $.duckduckasian.correct);
+		document.getElementById("submit_answer").submit();
 	}	
 </script>
+
+<!---
+<script type="text/javascript">
+  $('.btn.btn-primary.btn-medium').bind('mouseenter', function() {
+
+    var color  = $(this).css("background-color");
+    $(this).css("background", "#380606");
+
+    $(this).bind("mouseout", function(){
+      $(this).css("background", color);
+    })
+  })
+</script>
+---!>
 
 {% if is_race %}
 <div class="button-groups">
@@ -59,41 +100,18 @@
 </br>
 {% endif %}
 
-<form id="submit_answer" action="/PlayGameAnswer/" method="POST">{% csrf_token %}
-	<input type="hidden" name="photo_user_id" value="{{ photo_user.id }}"/>
-	<input type="hidden" name="question_type" value="{{ question.id }}"/>
-	<input type="hidden" name="answer_id" value="{{ answer_id }}"/>	
-</form>
-
-<form id="skip_answer" action="/PlayGame/" method="POST">{% csrf_token %}
+<form id="submit_answer" action="/PlayGame/" method="POST">{% csrf_token %}
 	<input type="hidden" name="photo_user_id" value="{{ photo_user.id }}"/>
 	<input type="hidden" name="question_type" value="{{ question.id }}"/>
 	<input type="hidden" name="answer_id" value="{{ answer_id }}"/>
-	<input type="hidden" name="skipped" value="True"/>
+	<input type="hidden" name="correct" value="" id="correct_data"/>
+	<input type="hidden" name="num_attempted" value="" id="num_attempted_data"/>
 </form>
 
-<button class="" name="submit" type="submit" onclick="submit_answer()">
-submit
-</button>
-
-<button class="" name="skip" type="submit" onclick="skip_answer()">
-skip
-</button>
-
+<input type='button' id="next_question" class="" value="SKIP" onclick="next_question()">
 </br>
+
 <a href="/home/">Quit</a>
 
-
-<script type="text/javascript">
-  $('.btn.btn-primary.btn-medium').bind('mouseenter', function() {
-
-    var color  = $(this).css("background-color");
-    $(this).css("background", "#380606");
-
-    $(this).bind("mouseout", function(){
-      $(this).css("background", color);
-    })
-  })
-</script>
 </center>
 {% include 'footer.html' %}

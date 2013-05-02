@@ -24,5 +24,6 @@ class Answer(models.Model):
     answer_raw = models.CharField(max_length=1024, null=True) #user's submitted answer
     answer_correct = models.CharField(max_length=1024, null=True) #correct answer retrieved from the user_photo's profile 
     correct = models.BooleanField(blank=True) #whether or not the answer is correct. redundant informatino but it might save some computation
+    num_attempted = models.IntegerField(null=True); #number of attempts user took before getting the right answer
 
     objects = AnswerManager()
