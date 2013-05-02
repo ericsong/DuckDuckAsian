@@ -1,53 +1,76 @@
 {% include 'header.html' %}
 
 <script type="text/javascript">
-  race_stats = {{ race_stats|safe }};
-  console.log(race_stats['Chinese']);
+ 	global_race_stats = {{ race_stats|safe }};
+
+	var select_questiontype = "race";
+	var select_race = "Chinese";
+
+	window.onload=refreshStats;
+
+	function selectQuestionType(text){
+		select_questiontype = text;
+		refreshStats();
+	}
+
+	function selectRace(text){
+		select_race = text;
+		refreshStats();
+	}
+
+	function refreshStats(){
+		race_stats = global_race_stats[select_race];	
+		document.getElementById("total_attempted").innerHTML = race_stats[select_questiontype+"_total"];
+		document.getElementById("attempt_1").innerHTML = race_stats[select_questiontype+"_attempt_1"];
+		document.getElementById("attempt_2").innerHTML = race_stats[select_questiontype+"_attempt_2"];
+		document.getElementById("attempt_3").innerHTML = race_stats[select_questiontype+"_attempt_3"];
+		document.getElementById("attempt_more").innerHTML = race_stats[select_questiontype+"_attempt_more"];
+		document.getElementById("num_skipped").innerHTML = race_stats[select_questiontype+"_skipped"];		}
 </script>
 
 </br>
 </br>
 </br>
-<a id="button_race" class="btn btn-primary btn-medium" style="width:120px;" onclick="checkAnswer('button_race')">Ethnic Appearance</a>
-<a id="button_age" class="btn btn-primary btn-medium" style="width:120px;" onclick="checkAnswer('button_age')">Age</a>
+<a id="button_race" class="btn btn-primary btn-medium" style="width:120px;" onclick="selectQuestionType('race')">Ethnic Appearance</a>
+<a id="button_age" class="btn btn-primary btn-medium" style="width:120px;" onclick="selectQuestionType('age')">Age</a>
 </br>
 </br>
 
-<a id="button_chinese" class="btn btn-primary btn-medium" style="width:120px;" onclick="checkAnswer('button_chinese')">Chinese</a>
-<a id="button_korean" class="btn btn-primary btn-medium" style="width:120px;" onclick="checkAnswer('button_korean')">Korean</a>
-<a id="button_filipino" class="btn btn-primary btn-medium" style="width:120px;" onclick="checkAnswer('button_filipino')">Filipino</a>
-<a id="button_vietnamese" class="btn btn-primary btn-medium" style="width:120px;" onclick="checkAnswer('button_vietnamese')">Vietnamese</a>
-<a id="button_taiwanese" class="btn btn-primary btn-medium" style="width:120px;" onclick="checkAnswer('button_taiwanese')">Taiwanese</a>
-<a id="button_thai" class="btn btn-primary btn-medium" style="width:120px;" onclick="checkAnswer('button_thai')">Thai</a>
+<a id="button_chinese" class="btn btn-primary btn-medium" style="width:120px;" onclick="selectRace('Chinese')">Chinese</a>
+<a id="button_korean" class="btn btn-primary btn-medium" style="width:120px;" onclick="selectRace('Korean')">Korean</a>
+<a id="button_filipino" class="btn btn-primary btn-medium" style="width:120px;" onclick="selectRace('Filipino')">Filipino</a>
+<a id="button_vietnamese" class="btn btn-primary btn-medium" style="width:120px;" onclick="selectRace('Vietnamese')">Vietnamese</a>
+<a id="button_taiwanese" class="btn btn-primary btn-medium" style="width:120px;" onclick="selectRace('Taiwanese')">Taiwanese</a>
+<a id="button_thai" class="btn btn-primary btn-medium" style="width:120px;" onclick="selectRace('Thai')">Thai</a>
 </br>
 </br>
 
 <h3>Number of questions attempted: 
-  <b id="total_attempted" value=""> 
+  <b id="total_attempted" ></b> 
 </h3>
 </br>
 
 <h3>Answered correctly on first try: 
-  <b id="attempt_1" value="">
+  <b id="attempt_1" value=""></b>
 </h3>
 </br>
 <h3>Answered correctly on second try: 
-  <b id="attempt_2" value="">
+  <b id="attempt_2" value=""></b>
 </h3>
 </br>
 
 <h3>Answered correctly on third try: 
-  <b id="attempt_3" value="">
+  <b id="attempt_3" value=""></b>
 </h3>
 </br>
 
 <h3>Answered correctly on fourth try or more: 
-  <b id="attempt_more" value="">
+  <b id="attempt_more" value=""></b>
 </h3>
 </br>
 
 <h3>Times skipped: 
-  <b id="num_skipped" value"">
+  <b id="num_skipped" value""></b>
 </h3>
 </br>
 
