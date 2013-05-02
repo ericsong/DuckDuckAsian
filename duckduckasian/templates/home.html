@@ -1,17 +1,13 @@
 
-
 {% include 'header.html' %}	
  
-<h3> Hey, {{ user.username }}! </h3>
-<a href="/UploadInfo/">Upload your info!</a>
-</br>
-<a href="/ViewUserInfo/">View your info!</a>
-</br>
-<a href="/ViewUserStats/">View your stats!</a>
-</br>
-<a href="/PlayGame/">Play the game!</a>
-</br>
-<a href="/logout/">logout</a>
-</br>
+<h3 style="padding-left:10px"><h3> Hey, {{ user.username }}! </h3>
+<div style="padding-left:20px">
+<button class="btn btn-large" type="button" onclick="window.location.href='http://eric-song:8502/UploadInfo/'">Upload your info!</button>
+<button class="btn btn-large" type="button" onclick="window.location.href='http://eric-song:8502/ViewUserInfo/'">View your info!</button>
+<button class="btn btn-large" type="button" onclick="window.location.href='http://eric-song:8502/ViewUserStats/'">View user stats!</button>
+<button class="btn btn-large" type="button" onclick="window.location.href='http://eric-song:8502/PlayGame/'">Play Game!</button>
+<button class="btn btn-large" type="button" onclick="window.location.href='http://eric-song:8502/logout/'">Logout</button>
+</div>
 
 {% include 'footer.html' %}
