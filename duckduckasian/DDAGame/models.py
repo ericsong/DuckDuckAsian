@@ -9,8 +9,8 @@ class QuestionType(models.Model):
     submit_format = models.CharField(max_length=1024) #what kind of submittion. radio? text input? number? etc
 
 class AnswerManager(models.Manager):
-    def create_Answer(self, question_type, time_started, user_answering, user_photo):
-        answer = self.create(question_type=question_type, time_started=time_started, user_answering=user_answering, user_photo=user_photo)
+    def create_Answer(self, question_type, time_started, user_answering, user_photo, correct_answer):
+        answer = self.create(question_type=question_type, time_started=time_started, user_answering=user_answering, user_photo=user_photo, answer_correct = correct_answer)
         return answer 
 
 #model representing a user's answer
@@ -22,7 +22,7 @@ class Answer(models.Model):
     user_photo = models.ForeignKey(DDAUser, related_name='user_photo') #user in the photo
     answer_skipped = models.BooleanField(blank=True) #whether or not the user skipped
     answer_raw = models.CharField(max_length=1024, null=True) #user's submitted answer
-    answer_correct = models.CharField(max_length=1024, null=True) #correct answer retrieved from the user_photo's profile 
+    answer_correct = models.CharField(max_length=1024) #correct answer retrieved from the user_photo's profile 
     correct = models.BooleanField(blank=True) #whether or not the answer is correct. redundant informatino but it might save some computation
     num_attempted = models.IntegerField(null=True); #number of attempts user took before getting the right answer
 

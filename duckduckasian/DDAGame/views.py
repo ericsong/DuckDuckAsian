@@ -33,6 +33,7 @@ def PlayGame(request):
             answer.correct = False
             answer.num_attempted = int(num_attempted)
 
+        answer.time_answered = datetime.now()
         answer.save();
 
     num_photos = DDAUser_model.objects.count() - DDAUser_model.objects.filter(race=None).count()
@@ -44,9 +45,6 @@ def PlayGame(request):
     questionID = random.randint(1, num_questions)
     questiontype = QuestionType_model.objects.get(id=questionID) #retrieve random question
 
-    new_answer = Answer_model.objects.create_Answer(questiontype, datetime.now(), answering_user, photo_user)
-    new_answer.save()
-    
     if(questiontype.info_type == "race"):
         is_race = True
         is_age = False 
@@ -54,7 +52,10 @@ def PlayGame(request):
     elif(questiontype.info_type == "age"):
         is_race = False 
         is_age = True
-        correct_answer = calculate_age(photo_user.date_of_birth)
+        correct_answer = calculate_age_category(calculate_age(photo_user.date_of_birth))
+
+    new_answer = Answer_model.objects.create_Answer(questiontype, datetime.now(), answering_user, photo_user, correct_answer)
+    new_answer.save()
 
     return render(request, 'PlayGame.html', {
         'user': request.user,
@@ -65,6 +66,24 @@ def PlayGame(request):
         'question': questiontype,
         'answer_id': new_answer.id,
     })
+
+def calculate_age_category(age):
+    if(age < 10):
+        return "0-9"
+    elif(age < 20):
+        return "10-19"
+    elif(age < 30):
+        return "20-29"
+    elif(age < 40):
+        return "30-39"
+    elif(age < 50):
+        return "40-49"
+    elif(age < 60):
+        return "50-59"
+    elif(age < 70):
+        return "60-69"
+    else:
+        return "70"
 
 def calculate_age(born):
     today = date.today()
