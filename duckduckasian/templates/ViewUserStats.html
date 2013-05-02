@@ -1,19 +1,35 @@
 {% include 'header.html' %}
 
 <script type="text/javascript">
- 	global_race_stats = {{ race_stats|safe }};
+ 	var global_race_stats = {{ race_stats|safe }};
 
-	var select_questiontype = "race";
-	var select_race = "Chinese";
+	var select_questiontype;
+	var select_race;
+  var color_selected = "#8CD966";
+  var color_unselected = "#0000FF";
 
+  window.onload=unpaintRaces;
+  window.onload=unpaintQuestions;
+  window.onload=selectQuestionType('race');
+  window.onload=selectRace('Chinese');
 	window.onload=refreshStats;
 
 	function selectQuestionType(text){
-		select_questiontype = text;
+    var button_id = "#button_" + text;
+
+    unpaintQuestions();
+    $(button_id).css("background", color_selected);
+    
+    select_questiontype = text;
 		refreshStats();
 	}
 
-	function selectRace(text){
+function selectRace(text){
+    var button_id = "#button_" + text;
+
+    unpaintRaces();
+    $(button_id).css("background", color_selected);
+
 		select_race = text;
 		refreshStats();
 	}
@@ -25,7 +41,22 @@
 		document.getElementById("attempt_2").innerHTML = race_stats[select_questiontype+"_attempt_2"];
 		document.getElementById("attempt_3").innerHTML = race_stats[select_questiontype+"_attempt_3"];
 		document.getElementById("attempt_more").innerHTML = race_stats[select_questiontype+"_attempt_more"];
-		document.getElementById("num_skipped").innerHTML = race_stats[select_questiontype+"_skipped"];		}
+    document.getElementById("num_skipped").innerHTML = race_stats[select_questiontype+"_skipped"];		
+  }
+
+  function unpaintQuestions(){
+    $('#button_race').css("background", color_unselected); 
+    $('#button_age').css("background", color_unselected);
+  }
+
+  function unpaintRaces(){
+    $('#button_Chinese').css("background", color_unselected);
+    $('#button_Korean').css("background", color_unselected);
+    $('#button_Filipino').css("background", color_unselected);
+    $('#button_Vietnamese').css("background", color_unselected);
+    $('#button_Taiwanese').css("background", color_unselected);
+    $('#button_Thai').css("background", color_unselected);
+  }
 </script>
 
 </br>
@@ -36,12 +67,12 @@
 </br>
 </br>
 
-<a id="button_chinese" class="btn btn-primary btn-medium" style="width:120px;" onclick="selectRace('Chinese')">Chinese</a>
-<a id="button_korean" class="btn btn-primary btn-medium" style="width:120px;" onclick="selectRace('Korean')">Korean</a>
-<a id="button_filipino" class="btn btn-primary btn-medium" style="width:120px;" onclick="selectRace('Filipino')">Filipino</a>
-<a id="button_vietnamese" class="btn btn-primary btn-medium" style="width:120px;" onclick="selectRace('Vietnamese')">Vietnamese</a>
-<a id="button_taiwanese" class="btn btn-primary btn-medium" style="width:120px;" onclick="selectRace('Taiwanese')">Taiwanese</a>
-<a id="button_thai" class="btn btn-primary btn-medium" style="width:120px;" onclick="selectRace('Thai')">Thai</a>
+<a id="button_Chinese" class="btn btn-primary btn-medium" style="width:120px;" onclick="selectRace('Chinese')">Chinese</a>
+<a id="button_Korean" class="btn btn-primary btn-medium" style="width:120px;" onclick="selectRace('Korean')">Korean</a>
+<a id="button_Filipino" class="btn btn-primary btn-medium" style="width:120px;" onclick="selectRace('Filipino')">Filipino</a>
+<a id="button_Vietnamese" class="btn btn-primary btn-medium" style="width:120px;" onclick="selectRace('Vietnamese')">Vietnamese</a>
+<a id="button_Taiwanese" class="btn btn-primary btn-medium" style="width:120px;" onclick="selectRace('Taiwanese')">Taiwanese</a>
+<a id="button_Thai" class="btn btn-primary btn-medium" style="width:120px;" onclick="selectRace('Thai')">Thai</a>
 </br>
 </br>
 
