@@ -1,20 +1,54 @@
 {% include 'header.html' %}
 
 <script type="text/javascript">
-  race_stats = jquery.parseJSON({{ race_stats }});
+  race_stats = {{ race_stats|safe }};
   console.log(race_stats['Chinese']);
 </script>
 
-<h3>Number of questions attempted: </h3>
+</br>
+</br>
+</br>
+<a id="button_race" class="btn btn-primary btn-medium" style="width:120px;" onclick="checkAnswer('button_race')">Ethnic Appearance</a>
+<a id="button_age" class="btn btn-primary btn-medium" style="width:120px;" onclick="checkAnswer('button_age')">Age</a>
+</br>
 </br>
 
-<h3>Number of questions correctly answered: {{  }}</h3>
+<a id="button_chinese" class="btn btn-primary btn-medium" style="width:120px;" onclick="checkAnswer('button_chinese')">Chinese</a>
+<a id="button_korean" class="btn btn-primary btn-medium" style="width:120px;" onclick="checkAnswer('button_korean')">Korean</a>
+<a id="button_filipino" class="btn btn-primary btn-medium" style="width:120px;" onclick="checkAnswer('button_filipino')">Filipino</a>
+<a id="button_vietnamese" class="btn btn-primary btn-medium" style="width:120px;" onclick="checkAnswer('button_vietnamese')">Vietnamese</a>
+<a id="button_taiwanese" class="btn btn-primary btn-medium" style="width:120px;" onclick="checkAnswer('button_taiwanese')">Taiwanese</a>
+<a id="button_thai" class="btn btn-primary btn-medium" style="width:120px;" onclick="checkAnswer('button_thai')">Thai</a>
+</br>
 </br>
 
-<h3>Percentage of questions correctly answered: {{  }}%</h3>
+<h3>Number of questions attempted: 
+  <b id="total_attempted" value=""> 
+</h3>
 </br>
 
-<h3>Number of questions skipped: {{  }}</h3>
+<h3>Answered correctly on first try: 
+  <b id="attempt_1" value="">
+</h3>
+</br>
+<h3>Answered correctly on second try: 
+  <b id="attempt_2" value="">
+</h3>
+</br>
+
+<h3>Answered correctly on third try: 
+  <b id="attempt_3" value="">
+</h3>
+</br>
+
+<h3>Answered correctly on fourth try or more: 
+  <b id="attempt_more" value="">
+</h3>
+</br>
+
+<h3>Times skipped: 
+  <b id="num_skipped" value"">
+</h3>
 </br>
 
 <a href="/home/">Back to the homepage</a>
