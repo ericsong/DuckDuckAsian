@@ -1,10 +1,11 @@
 {% include 'header.html' %}
 
 {{ state }}
-<h1> Register for Duck Duck Asian </h1>
+<h1 style="padding-left:5px">Register for Duck Duck Asian</h1>
+<div style="padding-left:20px;padding-top:10px">
 <form action="/register/" method="post">{% csrf_token %}
 	{{ form.as_p }}
 	<input type="submit" value = "register" />
 </form>
-
+</div>
 {% include 'footer.html' %}	
