@@ -9,8 +9,8 @@ class QuestionType(models.Model):
     submit_format = models.CharField(max_length=1024) #what kind of submittion. radio? text input? number? etc
 
 class AnswerManager(models.Manager):
-    def create_Answer(self, question_type, time_started, user_answering, user_photo, correct_answer):
-        answer = self.create(question_type=question_type, time_started=time_started, user_answering=user_answering, user_photo=user_photo, answer_correct = correct_answer)
+    def create_Answer(self, question_type, time_started, user_answering, user_photo, user_photo_race, correct_answer):
+        answer = self.create(question_type=question_type, time_started=time_started, user_answering=user_answering, user_photo=user_photo, user_photo_race=user_photo_race, answer_correct = correct_answer)
         return answer 
 
 #model representing a user's answer
@@ -20,6 +20,7 @@ class Answer(models.Model):
     time_answered = models.DateTimeField(null=True) #time the user answered
     user_answering = models.ForeignKey(DDAUser, related_name='user_answering') #user answering the question
     user_photo = models.ForeignKey(DDAUser, related_name='user_photo') #user in the photo
+    user_photo_race = models.CharField(max_length=1024) #user_photo's race 
     answer_skipped = models.BooleanField(blank=True) #whether or not the user skipped
     answer_raw = models.CharField(max_length=1024, null=True) #user's submitted answer
     answer_correct = models.CharField(max_length=1024) #correct answer retrieved from the user_photo's profile 

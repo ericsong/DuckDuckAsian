@@ -12,13 +12,11 @@ import random
 def PlayGame(request):
     if request.POST:
         photo_user_id = request.POST.get("photo_user_id")
-        question_type_id = request.POST.get("question_type")
         answer_id = request.POST.get("answer_id")
         correct = request.POST.get("correct")
         num_attempted = request.POST.get("num_attempted")
 
         photo_user = DDAUser_model.objects.get(id=photo_user_id)
-        question_type = QuestionType_model.objects.get(id=question_type_id)
         answer = Answer_model.objects.get(id=answer_id)
 
         if(correct == "not answered"): #user skipped
@@ -54,7 +52,7 @@ def PlayGame(request):
         is_age = True
         correct_answer = calculate_age_category(calculate_age(photo_user.date_of_birth))
 
-    new_answer = Answer_model.objects.create_Answer(questiontype, datetime.now(), answering_user, photo_user, correct_answer)
+    new_answer = Answer_model.objects.create_Answer(questiontype, datetime.now(), answering_user, photo_user, photo_user.race, correct_answer)
     new_answer.save()
 
     return render(request, 'PlayGame.html', {

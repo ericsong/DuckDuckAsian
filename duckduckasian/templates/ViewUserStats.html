@@ -1,15 +1,20 @@
 {% include 'header.html' %}
 
-<h3>Number of questions attempted: {{ num_answers }}</h3>
+<script type="text/javascript">
+  race_stats = jquery.parseJSON({{ race_stats }});
+  console.log(race_stats['Chinese']);
+</script>
+
+<h3>Number of questions attempted: </h3>
 </br>
 
-<h3>Number of questions correctly answered: {{ num_correct }}</h3>
+<h3>Number of questions correctly answered: {{  }}</h3>
 </br>
 
-<h3>Percentage of questions correctly answered: {{ percent_correct }}%</h3>
+<h3>Percentage of questions correctly answered: {{  }}%</h3>
 </br>
 
-<h3>Number of questions skipped: {{ num_skipped }}</h3>
+<h3>Number of questions skipped: {{  }}</h3>
 </br>
 
 <a href="/home/">Back to the homepage</a>

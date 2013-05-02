@@ -1,45 +1,72 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
+from django.utils import simplejson
 
 from DDAGame.models import Answer as Answer_model
+from DDAGame.models import QuestionType as QuestionType_model
 from auth.models import DDAUser as DDAUser_model
 
 @login_required(login_url="/login/")
 def ViewUserStats(request):
     s_user = DDAUser_model.objects.get(user=request.user) 
-    user_answers = Answer_model.objects.filter(user_answering=s_user)
     races = ['Chinese', 'Korean', 'Filipino', 'Vietnamese', 'Taiwanese', 'Thai']
+    race_question = QuestionType_model.objects.get(id=1)
+    age_question = QuestionType_model.objects.get(id=2)
+
     race_stats = {}
 
     for race in races:
         race_stats[race] = GroupStat(race)
-
-    for race in race_stats:
         
+    for race in race_stats:
+        user_answers = Answer_model.objects.filter(user_answering=s_user).filter(user_photo_race=race)
+        for answer in user_answers:
+            if(answer.question_type==race_question): #race 
+                if(answer.answer_skipped):
+                    race_stats[race].race_skipped += 1
+                else:
+                    race_stats[race].race_total += 1
+                    if(answer.num_attempted == 1):
+                        race_stats[race].race_attempt_1 += 1
+                    elif(answer.num_attempted == 2):
+                        race_stats[race].race_attempt_2 += 1
+                    elif(answer.num_attempted == 3):
+                        race_stats[race].race_attempt_3 += 1
+                    else:
+                        race_stats[race].race_attempt_more += 1
+            elif(answer.question_type==age_question):
+                if(answer.answer_skipped):
+                    race_stats[race].age_skipped += 1
+                else:
+                    race_stats[race].age_total += 1
+                    if(answer.num_attempted == 1):
+                        race_stats[race].age_attempt_1 += 1
+                    elif(answer.num_attempted == 2):
+                        race_stats[race].age_attempt_2 += 1
+                    elif(answer.num_attempted == 3):
+                        race_stats[race].age_attempt_3 += 1
+                    else:
+                        race_stats[race].age_attempt_more += 1 
 
-    for answer in user_answers:
-        if(answer.answer_skipped):
-            num_skipped += 1
-        if(answer.correct):
-            num_correct += 1
-        num_answers += 1
-
-    percent_correct = num_correct / float(num_answers) * 100
-
+    js_data = simplejson.dumps(race_stats) 
     return render(request, 'ViewUserStats.html', {
-        'num_answers': num_answers,
-        'num_correct': num_correct,
-        'num_skipped': num_skipped,
-        'percent_correct': percent_correct,
+        'race_stats': js_data,
     })
 
 class GroupStat:
     def __init__(self, name):
         self.name = name
-        self.total = 0
-        self.attempt_1 = 0
-        self.attempt_2 = 0
-        self.attempt_3 = 0
-        self.attempt_more = 0
-        self.skipped = 0
-        self.total_time = 0
+        self.race_total = 0
+        self.race_attempt_1 = 0
+        self.race_attempt_2 = 0
+        self.race_attempt_3 = 0
+        self.race_attempt_more = 0
+        self.race_skipped = 0
+        self.race_total_time = 0
+        self.age_total = 0
+        self.age_attempt_1 = 0
+        self.age_attempt_2 = 0
+        self.age_attempt_3 = 0
+        self.age_attempt_more = 0
+        self.age_skipped = 0
+        self.age_total_time = 0
