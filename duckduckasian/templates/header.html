@@ -30,10 +30,10 @@
 			<input type ="hidden" name="next" value="{{ next }}" />
 		{% endif %}
 		{% if user.is_authenticated %}
-			Welcome, {{ username }}.
+			Welcome, {{ user.username }}.
 		{% else %}
 			Login:
-			<input class="span2" type="text" placeholder="Username" name="username"  value="{{ username }}" >
+			<input class="span2" type="text" placeholder="Username" name="username"  value="" >
              	 	<input class="span2" type="password" placeholder="Password" name="password"  value = "" />
               		<a href ="/register/"> <button type="submit" class="btn">Sign in</button></a>
 		 {% endif %}
