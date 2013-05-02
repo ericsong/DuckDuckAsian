@@ -8,10 +8,14 @@ from auth.models import DDAUser as DDAUser_model
 def ViewUserStats(request):
     s_user = DDAUser_model.objects.get(user=request.user) 
     user_answers = Answer_model.objects.filter(user_answering=s_user)
+    races = ['Chinese', 'Korean', 'Filipino', 'Vietnamese', 'Taiwanese', 'Thai']
+    race_stats = {}
 
-    num_answers = 0
-    num_correct = 0
-    num_skipped = 0
+    for race in races:
+        race_stats[race] = GroupStat(race)
+
+    for race in race_stats:
+        
 
     for answer in user_answers:
         if(answer.answer_skipped):
@@ -28,3 +32,14 @@ def ViewUserStats(request):
         'num_skipped': num_skipped,
         'percent_correct': percent_correct,
     })
+
+class GroupStat:
+    def __init__(self, name):
+        self.name = name
+        self.total = 0
+        self.attempt_1 = 0
+        self.attempt_2 = 0
+        self.attempt_3 = 0
+        self.attempt_more = 0
+        self.skipped = 0
+        self.total_time = 0
