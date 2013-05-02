@@ -8,7 +8,7 @@
 </br>
 </br>
 
-<a id="button_Total" class="btn btn-primary btn-medium" style="width:120px;" onclick="selectRace('all')">Total</a>
+<a id="button_all" class="btn btn-primary btn-medium" style="width:120px;" onclick="selectRace('all')">Total</a>
 <a id="button_Chinese" class="btn btn-primary btn-medium" style="width:120px;" onclick="selectRace('Chinese')">Chinese</a>
 <a id="button_Korean" class="btn btn-primary btn-medium" style="width:120px;" onclick="selectRace('Korean')">Korean</a>
 <a id="button_Filipino" class="btn btn-primary btn-medium" style="width:120px;" onclick="selectRace('Filipino')">Filipino</a>
@@ -55,7 +55,7 @@
 	var select_questiontype;
 	var select_race;
   var color_selected = "#8CD966";
-  var color_unselected = $('.btn').css("background");
+  var color_unselected = $('.btn-medium').css("background");
 
   window.onload=unpaintRaces;
   window.onload=unpaintQuestions;
@@ -84,12 +84,19 @@ function selectRace(text){
 	}
 
 	function refreshStats(){
-		race_stats = global_race_stats[select_race];	
+    race_stats = global_race_stats[select_race];
+
+    var percent_attempt_1 = race_stats[select_questiontype+"_attempt_1"]/race_stats[select_questiontype+"_total"]*100;
+    var percent_attempt_2 = race_stats[select_questiontype+"_attempt_2"]/race_stats[select_questiontype+"_total"]*100;
+    var percent_attempt_3 = race_stats[select_questiontype+"_attempt_3"]/race_stats[select_questiontype+"_total"]*100;
+    var percent_attempt_more = race_stats[select_questiontype+"_attempt_more"]/race_stats[select_questiontype+"_total"]*100;
+
+
 		document.getElementById("total_attempted").innerHTML = race_stats[select_questiontype+"_total"];
-		document.getElementById("attempt_1").innerHTML = race_stats[select_questiontype+"_attempt_1"];
-		document.getElementById("attempt_2").innerHTML = race_stats[select_questiontype+"_attempt_2"];
-		document.getElementById("attempt_3").innerHTML = race_stats[select_questiontype+"_attempt_3"];
-		document.getElementById("attempt_more").innerHTML = race_stats[select_questiontype+"_attempt_more"];
+		document.getElementById("attempt_1").innerHTML = percent_attempt_1.toFixed(2) + "%";
+		document.getElementById("attempt_2").innerHTML = percent_attempt_2.toFixed(2) + "%";
+		document.getElementById("attempt_3").innerHTML = percent_attempt_3.toFixed(2) + "%";
+		document.getElementById("attempt_more").innerHTML = percent_attempt_more.toFixed(2) + "%";
     document.getElementById("num_skipped").innerHTML = race_stats[select_questiontype+"_skipped"];		
   }
 
@@ -99,7 +106,7 @@ function selectRace(text){
   }
 
 function unpaintRaces(){
-    $('#button_Total').css("background", color_unselected);
+    $('#button_all').css("background", color_unselected);
     $('#button_Chinese').css("background", color_unselected);
     $('#button_Korean').css("background", color_unselected);
     $('#button_Filipino').css("background", color_unselected);
