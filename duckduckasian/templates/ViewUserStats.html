@@ -1,12 +1,61 @@
 {% include 'header.html' %}
 
+
+</br>
+</br>
+</br>
+<a id="button_race" class="btn btn-primary btn-medium" style="width:120px;" onclick="selectQuestionType('race')">Ethnic Appearance</a>
+<a id="button_age" class="btn btn-primary btn-medium" style="width:120px;" onclick="selectQuestionType('age')">Age</a>
+</br>
+</br>
+
+<a id="button_Chinese" class="btn btn-primary btn-medium" style="width:120px;" onclick="selectRace('Chinese')">Chinese</a>
+<a id="button_Korean" class="btn btn-primary btn-medium" style="width:120px;" onclick="selectRace('Korean')">Korean</a>
+<a id="button_Filipino" class="btn btn-primary btn-medium" style="width:120px;" onclick="selectRace('Filipino')">Filipino</a>
+<a id="button_Vietnamese" class="btn btn-primary btn-medium" style="width:120px;" onclick="selectRace('Vietnamese')">Vietnamese</a>
+<a id="button_Taiwanese" class="btn btn-primary btn-medium" style="width:120px;" onclick="selectRace('Taiwanese')">Taiwanese</a>
+<a id="button_Thai" class="btn btn-primary btn-medium" style="width:120px;" onclick="selectRace('Thai')">Thai</a>
+</br>
+</br>
+
+<h3>Number of questions attempted: 
+  <b id="total_attempted" ></b> 
+</h3>
+</br>
+
+<h3>Answered correctly on first try: 
+  <b id="attempt_1" value=""></b>
+</h3>
+</br>
+<h3>Answered correctly on second try: 
+  <b id="attempt_2" value=""></b>
+</h3>
+</br>
+
+<h3>Answered correctly on third try: 
+  <b id="attempt_3" value=""></b>
+</h3>
+</br>
+
+<h3>Answered correctly on fourth try or more: 
+  <b id="attempt_more" value=""></b>
+</h3>
+</br>
+
+<h3>Times skipped: 
+  <b id="num_skipped" value""></b>
+</h3>
+</br>
+
+<a href="/home/">Back to the homepage</a>
+
 <script type="text/javascript">
  	var global_race_stats = {{ race_stats|safe }};
 
 	var select_questiontype;
 	var select_race;
   var color_selected = "#8CD966";
-  var color_unselected = "#0000FF";
+  var color_unselected = $('.btn').css("background");
 
   window.onload=unpaintRaces;
   window.onload=unpaintQuestions;
@@ -58,53 +107,4 @@ function selectRace(text){
     $('#button_Thai').css("background", color_unselected);
   }
 </script>
-
-</br>
-</br>
-</br>
-<a id="button_race" class="btn btn-primary btn-medium" style="width:120px;" onclick="selectQuestionType('race')">Ethnic Appearance</a>
-<a id="button_age" class="btn btn-primary btn-medium" style="width:120px;" onclick="selectQuestionType('age')">Age</a>
-</br>
-</br>
-
-<a id="button_Chinese" class="btn btn-primary btn-medium" style="width:120px;" onclick="selectRace('Chinese')">Chinese</a>
-<a id="button_Korean" class="btn btn-primary btn-medium" style="width:120px;" onclick="selectRace('Korean')">Korean</a>
-<a id="button_Filipino" class="btn btn-primary btn-medium" style="width:120px;" onclick="selectRace('Filipino')">Filipino</a>
-<a id="button_Vietnamese" class="btn btn-primary btn-medium" style="width:120px;" onclick="selectRace('Vietnamese')">Vietnamese</a>
-<a id="button_Taiwanese" class="btn btn-primary btn-medium" style="width:120px;" onclick="selectRace('Taiwanese')">Taiwanese</a>
-<a id="button_Thai" class="btn btn-primary btn-medium" style="width:120px;" onclick="selectRace('Thai')">Thai</a>
-</br>
-</br>
-
-<h3>Number of questions attempted: 
-  <b id="total_attempted" ></b> 
-</h3>
-</br>
-
-<h3>Answered correctly on first try: 
-  <b id="attempt_1" value=""></b>
-</h3>
-</br>
-<h3>Answered correctly on second try: 
-  <b id="attempt_2" value=""></b>
-</h3>
-</br>
-
-<h3>Answered correctly on third try: 
-  <b id="attempt_3" value=""></b>
-</h3>
-</br>
-
-<h3>Answered correctly on fourth try or more: 
-  <b id="attempt_more" value=""></b>
-</h3>
-</br>
-
-<h3>Times skipped: 
-  <b id="num_skipped" value""></b>
-</h3>
-</br>
-
-<a href="/home/">Back to the homepage</a>
-
 {% include 'footer.html' %}
