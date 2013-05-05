@@ -1,33 +1,5 @@
 {% include 'header.html' %}
 
-<script type="text/javascript">
- 	global_race_stats = {{ race_stats|safe }};
-
-	var select_questiontype = "race";
-	var select_race = "Chinese";
-
-	window.onload=refreshStats;
-
-	function selectQuestionType(text){
-		select_questiontype = text;
-		refreshStats();
-	}
-
-	function selectRace(text){
-		select_race = text;
-		refreshStats();
-	}
-
-	function refreshStats(){
-		race_stats = global_race_stats[select_race];	
-		document.getElementById("total_attempted").innerHTML = race_stats[select_questiontype+"_total"];
-		document.getElementById("attempt_1").innerHTML = race_stats[select_questiontype+"_attempt_1"];
-		document.getElementById("attempt_2").innerHTML = race_stats[select_questiontype+"_attempt_2"];
-		document.getElementById("attempt_3").innerHTML = race_stats[select_questiontype+"_attempt_3"];
-		document.getElementById("attempt_more").innerHTML = race_stats[select_questiontype+"_attempt_more"];
-		document.getElementById("num_skipped").innerHTML = race_stats[select_questiontype+"_skipped"];		}
-</script>
-
 </br>
 </br>
 </br>
@@ -36,12 +8,13 @@
 </br>
 </br>
 
-<a id="button_chinese" class="btn btn-primary btn-medium" style="width:120px;" onclick="selectRace('Chinese')">Chinese</a>
-<a id="button_korean" class="btn btn-primary btn-medium" style="width:120px;" onclick="selectRace('Korean')">Korean</a>
-<a id="button_filipino" class="btn btn-primary btn-medium" style="width:120px;" onclick="selectRace('Filipino')">Filipino</a>
-<a id="button_vietnamese" class="btn btn-primary btn-medium" style="width:120px;" onclick="selectRace('Vietnamese')">Vietnamese</a>
-<a id="button_taiwanese" class="btn btn-primary btn-medium" style="width:120px;" onclick="selectRace('Taiwanese')">Taiwanese</a>
-<a id="button_thai" class="btn btn-primary btn-medium" style="width:120px;" onclick="selectRace('Thai')">Thai</a>
+<a id="button_all" class="btn btn-primary btn-medium" style="width:120px;" onclick="selectRace('all')">Total</a>
+<a id="button_Chinese" class="btn btn-primary btn-medium" style="width:120px;" onclick="selectRace('Chinese')">Chinese</a>
+<a id="button_Korean" class="btn btn-primary btn-medium" style="width:120px;" onclick="selectRace('Korean')">Korean</a>
+<a id="button_Filipino" class="btn btn-primary btn-medium" style="width:120px;" onclick="selectRace('Filipino')">Filipino</a>
+<a id="button_Vietnamese" class="btn btn-primary btn-medium" style="width:120px;" onclick="selectRace('Vietnamese')">Vietnamese</a>
+<a id="button_Taiwanese" class="btn btn-primary btn-medium" style="width:120px;" onclick="selectRace('Taiwanese')">Taiwanese</a>
+<a id="button_Thai" class="btn btn-primary btn-medium" style="width:120px;" onclick="selectRace('Thai')">Thai</a>
 </br>
 </br>
 
@@ -76,4 +49,70 @@
 
 <a href="/home/">Back to the homepage</a>
 
+<script type="text/javascript">
+ 	var global_race_stats = {{ race_stats|safe }};
+
+	var select_questiontype;
+	var select_race;
+  var color_selected = "#8CD966";
+  var color_unselected = $('.btn-medium').css("background");
+
+  window.onload=unpaintRaces;
+  window.onload=unpaintQuestions;
+  window.onload=selectQuestionType('race');
+  window.onload=selectRace('Chinese');
+	window.onload=refreshStats;
+
+	function selectQuestionType(text){
+    var button_id = "#button_" + text;
+
+    unpaintQuestions();
+    $(button_id).css("background", color_selected);
+    
+    select_questiontype = text;
+		refreshStats();
+	}
+
+function selectRace(text){
+    var button_id = "#button_" + text;
+
+    unpaintRaces();
+    $(button_id).css("background", color_selected);
+
+		select_race = text;
+		refreshStats();
+	}
+
+	function refreshStats(){
+    race_stats = global_race_stats[select_race];
+
+    var percent_attempt_1 = race_stats[select_questiontype+"_attempt_1"]/race_stats[select_questiontype+"_total"]*100;
+    var percent_attempt_2 = race_stats[select_questiontype+"_attempt_2"]/race_stats[select_questiontype+"_total"]*100;
+    var percent_attempt_3 = race_stats[select_questiontype+"_attempt_3"]/race_stats[select_questiontype+"_total"]*100;
+    var percent_attempt_more = race_stats[select_questiontype+"_attempt_more"]/race_stats[select_questiontype+"_total"]*100;
+
+
+		document.getElementById("total_attempted").innerHTML = race_stats[select_questiontype+"_total"];
+		document.getElementById("attempt_1").innerHTML = percent_attempt_1.toFixed(2) + "%";
+		document.getElementById("attempt_2").innerHTML = percent_attempt_2.toFixed(2) + "%";
+		document.getElementById("attempt_3").innerHTML = percent_attempt_3.toFixed(2) + "%";
+		document.getElementById("attempt_more").innerHTML = percent_attempt_more.toFixed(2) + "%";
+    document.getElementById("num_skipped").innerHTML = race_stats[select_questiontype+"_skipped"];		
+  }
+
+  function unpaintQuestions(){
+    $('#button_race').css("background", color_unselected); 
+    $('#button_age').css("background", color_unselected);
+  }
+
+function unpaintRaces(){
+    $('#button_all').css("background", color_unselected);
+    $('#button_Chinese').css("background", color_unselected);
+    $('#button_Korean').css("background", color_unselected);
+    $('#button_Filipino').css("background", color_unselected);
+    $('#button_Vietnamese').css("background", color_unselected);
+    $('#button_Taiwanese').css("background", color_unselected);
+    $('#button_Thai').css("background", color_unselected);
+  }
+</script>
 {% include 'footer.html' %}

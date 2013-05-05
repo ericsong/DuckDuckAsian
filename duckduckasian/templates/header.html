@@ -9,7 +9,7 @@
          <link rel="stylesheet" href="http://flip.hr/css/bootstrap.min.css">
  </head>
  <body>
-<div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar navbar-inverse">
       <div class="navbar-inner">
         <div class="container">
           <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
@@ -22,18 +22,21 @@
             <ul class="nav">
               <li class="active"><a href="http://eric-song.com:8502">Home</a></li>
               <li><a href="/about/">About</a></li>
-              <li><a href="/profile/">Profile</a></li>
+              <li><a href="/ViewUserInfo/">Profile</a></li>
             </ul>
             <form class="navbar-form pull-right" action = "/login/" method="post" >
   	{% csrf_token %}
 		{% if next %}
 			<input type ="hidden" name="next" value="{{ next }}" />
 		{% endif %}
-<!--We need to check if they're currently logged in or not before showing this-->
-		Login:
-              <input class="span2" type="text" placeholder="Username" name="username"  value="{{ username }}" >
-              <input class="span2" type="password" placeholder="Password" name="password"  value = "" />
-              <a href ="/register/"> <button type="submit" class="btn">Sign in</button></a>
+		{% if user.is_authenticated %}
+			<div style="padding-top:10px;">Welcome, {{ user.username }}.</div>
+		{% else %}
+			Login:
+			<input class="span2" type="text" placeholder="Username" name="username"  value="" >
+             	 	<input class="span2" type="password" placeholder="Password" name="password"  value = "" />
+              		<a href ="/register/"> <button type="submit" class="btn">Sign in</button></a>
+		 {% endif %}
             </form>
           </div><!--/.nav-collapse -->
         </div>

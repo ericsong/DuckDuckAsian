@@ -1,10 +1,11 @@
 {% include 'header.html' %}
 
+<div style="padding-left:10px">
 <form action="/UploadInfo/" enctype="multipart/form-data" method="POST">{% csrf_token %}
 	{{ form.as_p }}
 	<input type="submit" value="Submit"/>
 </form>
-
+</div>
 </br>
 <a href="/home/">Back to homepage</a>
 

@@ -62,7 +62,29 @@ def ViewUserStats(request):
                     else:
                         race_stats[race]['age_attempt_more'] += 1 
 
+    race_stats['all'] = {}
+    race_stats['all']['race_total'] = 0
+    race_stats['all']['race_attempt_1'] = 0
+    race_stats['all']['race_attempt_2'] = 0
+    race_stats['all']['race_attempt_3'] = 0
+    race_stats['all']['race_attempt_more'] = 0
+    race_stats['all']['race_skipped'] = 0
+    race_stats['all']['race_total_time'] = 0
+    race_stats['all']['age_total'] = 0
+    race_stats['all']['age_attempt_1'] = 0
+    race_stats['all']['age_attempt_2'] = 0
+    race_stats['all']['age_attempt_3'] = 0
+    race_stats['all']['age_attempt_more'] = 0
+    race_stats['all']['age_skipped'] = 0
+    race_stats['all']['age_total_time'] = 0
+ 
+    for race in races:
+        for key in race_stats[race]:
+            race_stats['all'][key] += race_stats[race][key]
+
+
     js_data = simplejson.dumps(race_stats) 
+
     return render(request, 'ViewUserStats.html', {
         'race_stats': js_data,
     })
