@@ -1,0 +1,7 @@
+redesign...
+Photos are not directly linked to users
+
+photo may have an owner which is the user that uploaded it
+
+this allows anybody to upload any number of pictures
+also makes it easier to automatically upload pictures
