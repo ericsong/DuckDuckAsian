@@ -13,5 +13,5 @@ class RegistrationForm(forms.Form):
     password = forms.CharField(widget=PasswordInput, max_length=255)
     confirm_password = forms.CharField(widget=PasswordInput, max_length=255)
     email = forms.CharField(max_length=255)
-    race = forms.ChoiceField(choices=RACE_CHOICES)
+    #race = forms.ChoiceField(choices=RACE_CHOICES)
     date_of_birth = forms.DateField(widget=SelectDateWidget(years=BIRTH_YEAR_CHOICES))
